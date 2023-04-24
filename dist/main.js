@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const discord_js_1 = require("discord.js");
 require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
@@ -24,8 +25,10 @@ commandFiles.forEach((f) => {
     client.commands.set(command.data.name, command);
 });
 // ...
+// when bot is ready
 client.once(Events.ClientReady, (c) => {
     console.log(`${c.user.tag} is online!`);
+    client.user.setActivity({ name: 'hero code', type: discord_js_1.ActivityType.Watching });
 });
 client.on(Events.InteractionCreate, (interaction) => __awaiter(void 0, void 0, void 0, function* () {
     if (interaction.isCommand()) {
@@ -46,4 +49,5 @@ client.on(Events.InteractionCreate, (interaction) => __awaiter(void 0, void 0, v
         }
     }
 }));
+// startup the bot
 client.login(process.env.TOKEN);
