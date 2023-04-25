@@ -1,4 +1,4 @@
-import { BaseInteraction } from "discord.js";
+import { ActivityType, BaseInteraction } from "discord.js";
 
 require('dotenv').config()
 const path = require('path')
@@ -20,8 +20,11 @@ commandFiles.forEach((f: string) => {
 })
 // ...
 
+// when bot is ready
 client.once(Events.ClientReady, (c: typeof Client) => {
   console.log(`${c.user.tag} is online!`)
+
+  client.user.setActivity({name: 'hero code', type: ActivityType.Watching})
 })
 
 client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
@@ -45,4 +48,5 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
   
 })
 
+// startup the bot
 client.login(process.env.TOKEN)
