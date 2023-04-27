@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const discord_js_1 = require("discord.js");
 const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
@@ -18,7 +19,20 @@ module.exports = {
     execute(interaction) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            yield interaction.reply(`**Question Asked**: ${(_a = interaction.options.get('question')) === null || _a === void 0 ? void 0 : _a.value}`);
+            const askEmbed = new discord_js_1.EmbedBuilder()
+                .setDescription(`**Question Asked**: ${(_a = interaction.options.get('question')) === null || _a === void 0 ? void 0 : _a.value}`)
+                .setColor(0xffab2e)
+                .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() });
+            const sendBtn1 = new discord_js_1.ButtonBuilder()
+                .setCustomId('send-only')
+                .setLabel('Send Here')
+                .setStyle(discord_js_1.ButtonStyle.Primary);
+            const sendBtn2 = new discord_js_1.ButtonBuilder()
+                .setCustomId('send-everywhere')
+                .setLabel('Send Everywhere')
+                .setStyle(discord_js_1.ButtonStyle.Primary);
+            const row = new discord_js_1.ActionRowBuilder().addComponents(sendBtn1, sendBtn2);
+            yield interaction.reply({ embeds: [askEmbed], components: [row], ephemeral: true });
         });
     }
 };
