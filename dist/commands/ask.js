@@ -18,7 +18,7 @@ module.exports = {
         .addStringOption((option) => option.setName('question').setDescription('A Question').setRequired(true))
         .addStringOption((option) => option.setName('subject').setDescription('What is your question generally about?').setRequired(true).addChoices({ name: 'Web Development', value: 'webdev' }, { name: 'Game Development', value: 'gamedev' }, { name: 'Networking', value: 'networking' })),
     execute(interaction) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e, _f;
         return __awaiter(this, void 0, void 0, function* () {
             // params passed by user
             const question = (_a = interaction.options.get('question')) === null || _a === void 0 ? void 0 : _a.value;
@@ -48,8 +48,8 @@ module.exports = {
                     case 'send-only':
                         yield click.update({ content: 'only here' });
                         const channels = yield ((_c = interaction === null || interaction === void 0 ? void 0 : interaction.guild) === null || _c === void 0 ? void 0 : _c.channels.fetch());
-                        const questionCategory = channels.filter((c) => c.name === 'Questions').at(0);
-                        console.log(questionCategory);
+                        const questionCategory = (_d = channels.filter((c) => (c === null || c === void 0 ? void 0 : c.name) === 'Question Forum' || (c === null || c === void 0 ? void 0 : c.name) === 'question forum').at(0)) !== null && _d !== void 0 ? _d : yield ((_e = interaction.guild) === null || _e === void 0 ? void 0 : _e.channels.create({ name: 'Question Forum', type: discord_js_1.ChannelType.GuildCategory }));
+                        yield ((_f = interaction.guild) === null || _f === void 0 ? void 0 : _f.channels.create({ name: 'questions', type: discord_js_1.ChannelType.GuildForum }));
                         break;
                     case 'send-everywhere':
                         yield click.update({ content: 'everywhere' });

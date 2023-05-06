@@ -1,4 +1,5 @@
-import { SlashCommandStringOption, StringSelectMenuOptionBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, GuildChannel } from "discord.js";
+import { Channel } from "diagnostics_channel";
+import { SlashCommandStringOption, StringSelectMenuOptionBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, GuildChannel, ChannelType } from "discord.js";
 import { type CommandInteraction } from "discord.js";
 
 const { SlashCommandBuilder } = require('discord.js')
@@ -47,8 +48,9 @@ module.exports = {
         case 'send-only':
           await click.update({content: 'only here'})
           const channels = await interaction?.guild?.channels.fetch()
-          const questionCategory = channels!.filter((c: any) => c.name === 'Questions').at(0) ?? 
-          console.log(questionCategory)
+          const questionCategory: any = channels!.filter((c) => c?.name === 'Question Forum' || c?.name === 'question forum').at(0) ?? await interaction.guild?.channels.create({name: 'Question Forum', type: ChannelType.GuildCategory})    
+          
+          await interaction.guild?.channels.create({name: 'questions', type: ChannelType.GuildForum})
           
           break;
         case 'send-everywhere':

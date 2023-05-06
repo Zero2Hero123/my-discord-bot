@@ -19,7 +19,6 @@ commandFiles.forEach((f: string) => {
   client.commands.set(command.data.name, command);
 })
 // ...
-
 // when bot is ready
 client.once(Events.ClientReady, (c: typeof Client) => {
   console.log(`${c.user.tag} is online!`)
